@@ -1,9 +1,11 @@
+package database;
+
 import java.util.Date;
 
 public class ExpenseEntity {
     public int id;
     public String expenseName;
-    public Date expenseDate;
+    public String expenseDate;
     public String expenseType;
 
     public String amount;
@@ -11,7 +13,7 @@ public class ExpenseEntity {
     public ExpenseEntity() {
     }
 
-    public ExpenseEntity(int id, String expenseName, Date expenseDate,
+    public ExpenseEntity(int id, String expenseName, String expenseDate,
                          String expenseType) {
         id = id;
         this.expenseName = expenseName;

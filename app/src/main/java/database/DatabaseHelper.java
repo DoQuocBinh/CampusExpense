@@ -1,3 +1,5 @@
+package database;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -58,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(ExpenseEntry.COLUMN_NAME_DATE, expense.expenseDate.toString());
 
         // Insert the new row, returning the primary key value of the new row
-        return database.insertOrThrow(DATABASE_NAME, null, values);
+        return database.insertOrThrow(ExpenseEntry.TABLE_NAME, null, values);
     }
 
 

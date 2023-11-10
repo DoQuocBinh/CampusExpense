@@ -9,8 +9,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import java.sql.Date;
 import java.util.Calendar;
+
+
+import database.DatabaseHelper;
+import database.ExpenseEntity;
 
 
 public class AddNewExpense extends AppCompatActivity {
@@ -44,6 +51,30 @@ public class AddNewExpense extends AppCompatActivity {
                 DatePickerFragment datePicker = new DatePickerFragment();
                 datePicker.editText = editTextExpenseDate;
                 datePicker.show(getSupportFragmentManager(), "datePicker");
+            }
+        });
+
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText expenseNameControl = findViewById(R.id.editTextText);
+                String expenseName = expenseNameControl.getText().toString();
+                Spinner expenseTypeControl = findViewById(R.id.spinner);
+                String expenseType  = expenseTypeControl.getSelectedItem().toString();
+                EditText expenseAmountControl = findViewById(R.id.editTextText3);
+                String expenseAmount = expenseAmountControl.getText().toString();
+                EditText expenseDateControl = findViewById(R.id.editTextText2);
+                String expenseDate = expenseDateControl.getText().toString();
+
+                ExpenseEntity expense = new ExpenseEntity();
+                expense.expenseName = expenseName;
+                expense.amount = expenseAmount;
+                expense.expenseType = expenseType;
+                expense.expenseDate = expenseDate;
+                DatabaseHelper dbHelper = new DatabaseHelper(getApplication());
+                long id = dbHelper.insertExpense(expense);
+                Toast.makeText(getApplication(),String.valueOf(id),Toast.LENGTH_LONG).show();
+
             }
         });
 
