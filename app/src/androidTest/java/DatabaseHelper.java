@@ -1,3 +1,4 @@
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -28,8 +29,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + ExpenseEntry.TABLE_NAME;
 
+    private SQLiteDatabase database;
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        database = getWritableDatabase();
+
     }
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
@@ -42,6 +46,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
+    }
+
+    public long insertExpense(ExpenseEntity expense){
+
+        // Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(ExpenseEntry.COLUMN_NAME_EXPENSENAME, expense.expenseName);
+        values.put(ExpenseEntry.COLUMN_NAME_AMOUNT, expense.amount);
+        values.put(ExpenseEntry.COLUMN_NAME_TYPE, expense.expenseType);
+        values.put(ExpenseEntry.COLUMN_NAME_DATE, expense.expenseDate.toString());
+
+        // Insert the new row, returning the primary key value of the new row
+        return database.insertOrThrow(DATABASE_NAME, null, values);
     }
 
 

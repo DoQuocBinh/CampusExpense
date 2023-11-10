@@ -6,6 +6,8 @@ public class ExpenseEntity {
     public Date expenseDate;
     public String expenseType;
 
+    public String amount;
+
     public ExpenseEntity() {
     }
 
