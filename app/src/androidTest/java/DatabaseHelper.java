@@ -25,6 +25,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     ExpenseEntry.COLUMN_NAME_AMOUNT + " TEXT," +
                     ExpenseEntry.COLUMN_NAME_TYPE + " TEXT)";
 
+    private static final String SQL_DELETE_ENTRIES =
+            "DROP TABLE IF EXISTS " + ExpenseEntry.TABLE_NAME;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
