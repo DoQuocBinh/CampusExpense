@@ -2,6 +2,7 @@ package database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
@@ -62,6 +63,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Insert the new row, returning the primary key value of the new row
         return database.insertOrThrow(ExpenseEntry.TABLE_NAME, null, values);
     }
+    public String getAllExpenses() {
+        Cursor results = database.query(ExpenseEntry.TABLE_NAME, new String[] {ExpenseEntry._ID,ExpenseEntry.COLUMN_NAME_EXPENSENAME,ExpenseEntry.COLUMN_NAME_AMOUNT,ExpenseEntry.COLUMN_NAME_TYPE, ExpenseEntry.COLUMN_NAME_DATE},
+                null, null, null, null, ExpenseEntry.COLUMN_NAME_DATE);
+
+        String resultText = "";
+
+        results.moveToFirst();
+        while (!results.isAfterLast()) {
+            int id = results.getInt(0);
+            String name = results.getString(1);
+            String type = results.getString(2);
+            String date = results.getString(3);
+
+            resultText += id + " " + name + " " + type + " " + date + "\n";
+
+            results.moveToNext();
+        }
+
+        return resultText;
+
+    }
+
 
 
 }
