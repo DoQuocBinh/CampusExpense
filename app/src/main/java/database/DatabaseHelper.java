@@ -75,9 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String name = results.getString(1);
             String type = results.getString(2);
             String date = results.getString(3);
-
             resultText += id + " " + name + " " + type + " " + date + "\n";
-
             results.moveToNext();
         }
 
