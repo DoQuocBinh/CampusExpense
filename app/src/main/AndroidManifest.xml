@@ -13,6 +13,9 @@
         android:theme="@style/Theme.CampusExpense"
         tools:targetApi="31">
         <activity
+            android:name=".AllExpenses"
+            android:exported="false" />
+        <activity
             android:name=".AddNewExpense"
             android:exported="true">
             <intent-filter>

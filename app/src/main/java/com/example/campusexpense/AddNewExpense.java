@@ -5,6 +5,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -74,6 +75,9 @@ public class AddNewExpense extends AppCompatActivity {
                 DatabaseHelper dbHelper = new DatabaseHelper(getApplication());
                 long id = dbHelper.insertExpense(expense);
                 Toast.makeText(getApplication(),String.valueOf(id),Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getApplicationContext(), AllExpenses.class);
+                startActivity(intent);
 
             }
         });
