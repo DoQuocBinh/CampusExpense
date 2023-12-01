@@ -75,12 +75,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while (!results.isAfterLast()) {
             int id = results.getInt(0);
             String name = results.getString(1);
-            String type = results.getString(2);
-            String date = results.getString(3);
+            String amount = results.getString(2);
+            String type = results.getString(3);
+            String date = results.getString(4);
             ExpenseEntity expense = new ExpenseEntity();
             expense.id = id;
             expense.expenseName = name;
             expense.expenseType = type;
+            expense.amount = amount;
             expense.expenseDate = date;
             expenses.add(expense);
             results.moveToNext();

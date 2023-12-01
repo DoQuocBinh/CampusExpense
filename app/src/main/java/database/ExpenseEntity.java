@@ -22,7 +22,7 @@ public class ExpenseEntity {
     }
     @Override
     public String toString() {
-        return  expenseName + " - " + expenseDate;
+        return  expenseName + "\n" + amount + "\n" +expenseDate;
 
     }
 }
