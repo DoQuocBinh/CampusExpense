@@ -20,4 +20,9 @@ public class ExpenseEntity {
         this.expenseDate = expenseDate;
         this.expenseType = expenseType;
     }
+    @Override
+    public String toString() {
+        return  expenseName + " - " + expenseDate;
+
+    }
 }
