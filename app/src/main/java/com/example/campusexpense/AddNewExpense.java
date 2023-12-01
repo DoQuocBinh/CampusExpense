@@ -3,6 +3,7 @@ package com.example.campusexpense;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -12,6 +13,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -46,6 +50,32 @@ public class AddNewExpense extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_expense);
         EditText editTextExpenseDate = findViewById(R.id.editTextText2);
+
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String[]  options = {"Take photo","Choose from library","View a picture from Uri"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddNewExpense.this);
+                builder.setItems(options,(dialog,item)->{
+                    if (options[item]=="Take photo"){
+                        Snackbar.make(view, "Take photo", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }else if(options[item]=="Choose from library"){
+                        Snackbar.make(view, "Choose from library", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }else if(options[item]=="View a picture from Uri"){
+                        Snackbar.make(view, "View a picture from Uri", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
+
         editTextExpenseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
