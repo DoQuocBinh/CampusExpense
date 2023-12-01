@@ -15,10 +15,8 @@ public class AllExpenses extends AppCompatActivity {
         setContentView(R.layout.activity_all_expenses);
 
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-        String allExpenses = dbHelper.getAllExpenses();
 
-        TextView tv = findViewById(R.id.textView2);
-        tv.setText(allExpenses);
+
 
     }
 }

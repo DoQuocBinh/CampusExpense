@@ -3,6 +3,7 @@ package com.example.campusexpense;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -57,17 +58,17 @@ public class AddNewExpense extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String[]  options = {"Take photo","Choose from library","View a picture from Uri"};
+                final String[]  options = {"Option1","Option2","Option3"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddNewExpense.this);
                 builder.setItems(options,(dialog,item)->{
-                    if (options[item]=="Take photo"){
-                        Snackbar.make(view, "Take photo", Snackbar.LENGTH_LONG)
+                    if (options[item]=="Option1"){
+                        Intent intent = new Intent(getApplicationContext(), AllExpenses.class);
+                        startActivity(intent);
+                    }else if(options[item]=="Option2"){
+                        Snackbar.make(view, "Option2", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                    }else if(options[item]=="Choose from library"){
-                        Snackbar.make(view, "Choose from library", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }else if(options[item]=="View a picture from Uri"){
-                        Snackbar.make(view, "View a picture from Uri", Snackbar.LENGTH_LONG)
+                    }else if(options[item]=="Option3"){
+                        Snackbar.make(view, "Option3", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                         dialog.dismiss();
                     }

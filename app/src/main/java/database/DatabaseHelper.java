@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
@@ -63,23 +66,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Insert the new row, returning the primary key value of the new row
         return database.insertOrThrow(ExpenseEntry.TABLE_NAME, null, values);
     }
-    public String getAllExpenses() {
+    public List<ExpenseEntity> getAllExpenses() {
         Cursor results = database.query(ExpenseEntry.TABLE_NAME, new String[] {ExpenseEntry._ID,ExpenseEntry.COLUMN_NAME_EXPENSENAME,ExpenseEntry.COLUMN_NAME_AMOUNT,ExpenseEntry.COLUMN_NAME_TYPE, ExpenseEntry.COLUMN_NAME_DATE},
                 null, null, null, null, ExpenseEntry.COLUMN_NAME_DATE);
 
-        String resultText = "";
-
         results.moveToFirst();
+        List<ExpenseEntity> expenses = new ArrayList<>();
         while (!results.isAfterLast()) {
             int id = results.getInt(0);
             String name = results.getString(1);
             String type = results.getString(2);
             String date = results.getString(3);
-            resultText += id + " " + name + " " + type + " " + date + "\n";
+            ExpenseEntity expense = new ExpenseEntity();
+            expense.id = id;
+            expense.expenseName = name;
+            expense.expenseType = type;
+            expense.expenseDate = date;
+            expenses.add(expense);
             results.moveToNext();
         }
 
-        return resultText;
+        return expenses;
 
     }
 
