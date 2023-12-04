@@ -58,10 +58,10 @@ public class AddNewExpense extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String[]  options = {"Option1","Option2","Option3"};
+                final String[]  options = {"View All Expense","Option2","Option3"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddNewExpense.this);
                 builder.setItems(options,(dialog,item)->{
-                    if (options[item]=="Option1"){
+                    if (options[item]=="View All Expense"){
                         Intent intent = new Intent(getApplicationContext(), AllExpenses.class);
                         startActivity(intent);
                     }else if(options[item]=="Option2"){

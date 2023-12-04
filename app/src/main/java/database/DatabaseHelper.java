@@ -50,6 +50,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
     }
+    public void deleteExpense(int id){
+        database.delete(ExpenseEntry.TABLE_NAME,ExpenseEntry._ID + "=?",
+                new String[]{String.valueOf(id)});
+        database.close();
+    }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
@@ -66,6 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Insert the new row, returning the primary key value of the new row
         return database.insertOrThrow(ExpenseEntry.TABLE_NAME, null, values);
     }
+
     public List<ExpenseEntity> getAllExpenses() {
         Cursor results = database.query(ExpenseEntry.TABLE_NAME, new String[] {ExpenseEntry._ID,ExpenseEntry.COLUMN_NAME_EXPENSENAME,ExpenseEntry.COLUMN_NAME_AMOUNT,ExpenseEntry.COLUMN_NAME_TYPE, ExpenseEntry.COLUMN_NAME_DATE},
                 null, null, null, null, ExpenseEntry.COLUMN_NAME_DATE);
