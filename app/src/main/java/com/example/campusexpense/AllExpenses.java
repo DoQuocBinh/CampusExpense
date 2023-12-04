@@ -14,11 +14,14 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.List;
+
 import database.DatabaseHelper;
 import database.ExpenseEntity;
 
 public class AllExpenses extends AppCompatActivity {
 
+    List<ExpenseEntity> allExpense;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +29,11 @@ public class AllExpenses extends AppCompatActivity {
 
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
 
+        allExpense = dbHelper.getAllExpenses();
         ArrayAdapter adapter = new ArrayAdapter<ExpenseEntity>(this,
-                R.layout.activity_listview, dbHelper.getAllExpenses());
-
+                R.layout.activity_listview, allExpense);
         ListView listView = (ListView) findViewById(R.id.listExpense);
         listView.setAdapter(adapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -40,8 +42,12 @@ public class AllExpenses extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AllExpenses.this);
                 builder.setItems(options,(dialog,item)->{
                     if (options[item]=="Delete"){
-                        Snackbar.make(view, "Delete", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
+                        //1/Remove from the ListView
+                        allExpense.remove(position);
+                        adapter.notifyDataSetChanged();
+                        //2.Remove from database
+                        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+                        dbHelper.deleteExpense(entry.id);
                     }else if(options[item]=="Update"){
                         Snackbar.make(view, "Update", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
